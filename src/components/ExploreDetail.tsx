@@ -1,6 +1,7 @@
 import {
   IonButton,
   IonButtons,
+  IonBadge,
   IonContent,
   IonFooter,
   IonHeader,
@@ -13,8 +14,17 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  useIonPopover,
 } from "@ionic/react";
-import { add, car, closeCircle, globe, link } from "ionicons/icons";
+import {
+  add,
+  car,
+  closeCircle,
+  ellipsisHorizontalCircleOutline,
+  gitCompare,
+  globe,
+  link,
+} from "ionicons/icons";
 import { Park } from "../../typing";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -23,6 +33,7 @@ import ParkInfoBar, { featureIcons } from "./ParkInfoBar";
 import { convertTime } from "../lib/convertTime";
 import ParkWeatherBar from "./ParkWeatherBar";
 import ElevationBar from "./ElevationBar";
+import ParkAlertCard from "./ParkAlert";
 
 function ExploreDetail({
   park,
@@ -32,6 +43,7 @@ function ExploreDetail({
   dismiss: (park?: Park) => void;
 }) {
   const swiperRef = useRef<any>(null);
+  const [presentMorePopover] = useIonPopover(MorePopoverList);
   const availableFeatures = featureIcons
     .filter(
       // @ts-ignore
@@ -47,7 +59,7 @@ function ExploreDetail({
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>{park.name}</IonTitle>
+          <IonTitle className="text-left px-4">{park.name}</IonTitle>
           <IonButtons slot="end" collapse>
             <IonButton
               onClick={() => dismiss()}
@@ -59,7 +71,7 @@ function ExploreDetail({
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent color="light" fullscreen forceOverscroll>
+      <IonContent color="light" fullscreen>
         <Swiper
           modules={[Pagination]}
           pagination={true}
@@ -85,13 +97,13 @@ function ExploreDetail({
             </IonTitle>
           </IonToolbar>
         </IonHeader>
-        <div className="ion-padding -mt-4">
-          <div className="flex flex-col justify-between items-start mb-4">
+        <div className="ion-padding -mt-4 -mx-4">
+          <div className="flex flex-col justify-between items-start mb-4 px-4">
             <p className="text-dark-tint">
               {park.distanceTo} mi • {park.location}
             </p>
           </div>
-          <ParkInfoBar park={park} />
+          <ParkInfoBar park={park} className="px-4" />
         </div>
         <IonListHeader className="-mb-3">Details</IonListHeader>
         <IonList inset>
@@ -124,9 +136,24 @@ function ExploreDetail({
         <IonList inset>
           <div className="ion-padding">{availableFeatures}</div>
         </IonList>
+        <IonListHeader className="-mb-3 flex items-center pr-4">
+          <IonLabel className="m-0">Alerts in effect</IonLabel>
+          <IonBadge color="secondary">{park.alerts.length}</IonBadge>
+        </IonListHeader>
+        <Swiper
+          modules={[Pagination]}
+          pagination={true}
+          className="[&_.swiper-pagination-bullet]:!-mb-4"
+        >
+          {park.alerts.map((alert, index) => (
+            <SwiperSlide key={`${alert.title}.${index}`}>
+              <ParkAlertCard alert={alert} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
         <IonListHeader className="-mb-3">Trail Info</IonListHeader>
         <IonList inset>
-          <div className="ion-padding">{park.description}</div>
+          <p className="ion-padding">{park.description}</p>
         </IonList>
         <IonList inset>
           <IonItem button detail detailIcon={link}>
@@ -137,12 +164,22 @@ function ExploreDetail({
       </IonContent>
       <IonFooter>
         <IonToolbar>
-          <IonButton slot="start" color="light" className="">
-            <IonIcon icon={add} />
+          <IonButton
+            slot="start"
+            color="light"
+            onClick={(e) =>
+              presentMorePopover({
+                event: e.nativeEvent,
+              })
+            }
+          >
+            <IonIcon icon={ellipsisHorizontalCircleOutline} />
           </IonButton>
           <IonButton slot="end" expand="block" onClick={() => dismiss(park)}>
             <IonIcon slot="start" icon={car} />
-            <IonLabel slot="end">36 min</IonLabel>
+            <IonLabel slot="end">
+              {convertTime(Number((park.distanceTo * 1.2).toFixed()))}
+            </IonLabel>
           </IonButton>
         </IonToolbar>
       </IonFooter>
@@ -150,3 +187,16 @@ function ExploreDetail({
   );
 }
 export default ExploreDetail;
+
+const MorePopoverList = () => (
+  <IonList>
+    <IonItem detail={false} button>
+      <IonLabel>Add to plan</IonLabel>
+      <IonIcon color="primary" slot="end" icon={add} />
+    </IonItem>
+    <IonItem detail={false} button>
+      <IonLabel>Compare...</IonLabel>
+      <IonIcon color="primary" slot="end" icon={gitCompare} />
+    </IonItem>
+  </IonList>
+);

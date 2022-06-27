@@ -12,6 +12,7 @@ import {
   useIonModal,
   useIonAlert,
   IonicSafeString,
+  IonAvatar,
 } from "@ionic/react";
 import clsxm from "../lib/clsxm";
 import { showKeyboard } from "../lib/nativeCtrl";
@@ -22,6 +23,7 @@ import ParkItem from "./ParkItem";
 import ExploreDetail from "./ExploreDetail";
 import ExplorePlan from "./ExplorePlan";
 import ParkCompareModal from "./ParkCompareModal";
+import { FaUserCircle } from "react-icons/fa";
 const ExploreSheetModal = ({
   onDismiss,
   isOpen,
@@ -98,7 +100,7 @@ const ExploreSheetModal = ({
       present({
         header: "Portion of Diablo Foothills Trail closed",
         message: new IonicSafeString(`
-          <img src="/assets/trail-closed-demo.jpg" width="100%" style="object-fit:cover;border-radius:8px;margin-bottom:0.5rem;" />
+          <img src="/assets/trail-closed-demo.jpg" width="100%" style="object-fit:cover;border-radius:6px;margin-bottom:0.5rem;" />
           <p style="text-align:left">
           Part of the Diablo Foothills Trail starting from the stairs at Sand Bench will be closed for repairs 6 am to 4:30 pm Mondays through Thursdays until further notice. Other sections remain open.
           </p>
@@ -130,7 +132,10 @@ const ExploreSheetModal = ({
       <IonHeader className="">
         <IonToolbar className="relative ion-no-padding">
           <div
-            className={clsxm("absolute inset-0 z-10", isExpanded && "hidden")}
+            className={clsxm(
+              "absolute top-1.5 left-0 bottom-1.5 right-12 z-10",
+              isExpanded && "hidden"
+            )}
             onClick={() => {
               expandModal();
               setTimeout(() => {
@@ -138,17 +143,28 @@ const ExploreSheetModal = ({
               }, 100);
             }}
           />
-          <IonSearchbar
-            ref={inputRef}
-            value={search}
-            debounce={200}
-            placeholder="Search"
-            showCancelButton="focus"
-            className="mt-2 px-2 -mb-2"
-            onIonCancel={contractModal}
-            onIonChange={(e) => setSearch(e.detail.value!)}
-            onIonClear={() => setSearch("")}
-          />
+          <div className="flex gap-1.5 items-center">
+            <IonSearchbar
+              ref={inputRef}
+              value={search}
+              debounce={200}
+              placeholder="Search"
+              showCancelButton="focus"
+              className="mt-2 px-2 -mb-2"
+              onIonCancel={contractModal}
+              onIonChange={(e) => setSearch(e.detail.value!)}
+              onIonClear={() => setSearch("")}
+            />
+            <IonAvatar
+              className={clsxm(
+                "flex-shrink-0 w-9 h-9 mr-1",
+                isExpanded && "hidden"
+              )}
+              onClick={() => null}
+            >
+              <FaUserCircle className="text-primary-default w-9 h-9" />
+            </IonAvatar>
+          </div>
         </IonToolbar>
       </IonHeader>
       <IonContent ref={contentRef} color="light" scrollEvents>
@@ -162,11 +178,28 @@ const ExploreSheetModal = ({
             <IonButton>More</IonButton>
           </IonListHeader>
         </IonList>
-        <IonList className="!mt-0" inset>
+        <IonList className="!-mb-2" inset>
           {/* @ts-ignore */}
-          {parkList.map((park: Park) => (
+          {parkList.slice(1, 3).map((park: Park) => (
             <ParkItem
               key={park.id}
+              park={park}
+              onClick={handlePresentDetailModal}
+              options={{
+                type: "compact",
+              }}
+            />
+          ))}
+        </IonList>
+        <IonListHeader className="-mb-3">
+          <IonLabel>My Plans</IonLabel>
+          <IonButton>More</IonButton>
+        </IonListHeader>
+        <IonList inset>
+          {/* @ts-ignore */}
+          {parkList.slice(0, 1).map((park: Park) => (
+            <ParkItem
+              key={`my.plans.${park.id}`}
               park={park}
               onClick={handlePresentDetailModal}
               options={{

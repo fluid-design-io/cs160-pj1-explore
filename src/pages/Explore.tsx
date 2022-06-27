@@ -5,16 +5,16 @@ import {
   useIonModal,
   useIonViewDidEnter,
 } from "@ionic/react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useGeolocated } from "react-geolocated";
 import { MapkitProvider } from "react-mapkit";
 import { Park } from "../../typing";
 import ExploreMap from "../components/ExploreMap";
 import ExploreSheetModal from "../components/ExploreSheetModal";
+import HikingContent from "../components/HikingContent";
 import HikingStats from "../components/HikingStats";
 import ParkForks from "../components/ParkForks";
 import WelcomeModal from "../components/WelcomeModal";
-import clsxm from "../lib/clsxm";
 import { MAP_API } from "../lib/config";
 import { checkStorage, setStorage } from "../lib/storageHelper";
 
@@ -85,13 +85,7 @@ const ExplorePage: React.FC = () => {
           isOpen={isReady}
         />
         {mode.isHiking ? (
-          <div className="px-4">
-            <img
-              src="/assets/hiking-demo-img.jpg"
-              className="object-cover w-full rounded-xl max-h-[24rem] h-[30vh] min-h-[12rem]"
-              alt="Hiking guide"
-            />
-          </div>
+          <HikingContent park={mode.park!} />
         ) : (
           /* @ts-ignore */
           <MapkitProvider tokenOrCallback={MAP_API}>
@@ -121,7 +115,7 @@ const ExplorePage: React.FC = () => {
               </IonButton>
             </div>
             <div className="-mt-8">
-              <ParkForks />
+              <ParkForks park={mode.park!} />
             </div>
           </>
         )}

@@ -3,10 +3,20 @@ import {
   IonButtons,
   IonHeader,
   IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonTitle,
   IonToolbar,
+  useIonPopover,
 } from "@ionic/react";
-import { ellipsisHorizontalCircle } from "ionicons/icons";
+import {
+  cameraOutline,
+  ellipsisHorizontalCircle,
+  warningOutline,
+} from "ionicons/icons";
 import { Park } from "../../typing";
+import { convertTime } from "../lib/convertTime";
 import ParkWeatherBar from "./ParkWeatherBar";
 
 function HikingStats({
@@ -16,6 +26,7 @@ function HikingStats({
   isOpen: boolean;
   park: Park | undefined;
 }) {
+  const [presentMorePopover] = useIonPopover(PopoverList);
   if (!isOpen) {
     return null;
   }
@@ -23,44 +34,50 @@ function HikingStats({
     <>
       <IonHeader className="bg-light-default">
         <IonToolbar
-          className="mt-4 pb-2"
+          className=""
           style={{
             "--background": "transparent",
             "--border-width": "0px",
           }}
         >
+          <IonTitle className="text-left px-4 flex flex-col gap-0" color="primary">
+            <div className="leading-4">
+              {park && park.info.distance / 4} mile
+              {park && park.info.distance / 4 > 1 ? "s" : ""}
+            </div>
+            <div className="text-xs text-medium-shade">
+              {park && convertTime(Number((park.info.distance / 4) * 3 * 20))}{" "}
+              to hike
+            </div>
+          </IonTitle>
           <IonButtons slot="end">
-            <IonButton>
+            <IonButton
+              onClick={(e) =>
+                presentMorePopover({
+                  event: e.nativeEvent,
+                  size: "auto",
+                })
+              }
+            >
               <IonIcon icon={ellipsisHorizontalCircle} />
             </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <div className="text-primary-default p-4 bg-light-default z-10">
-        <div className="-mt-12">
-          <div className="flex justify-between items-end">
-            <div>
-              <h1 className="text-6xl sm:text-8xl italic font-extrabold ">
-                2.9{" "}
-                <span className="text-sm text-dark-tint font-semibold">
-                  miles
-                </span>
-              </h1>
-              <div className="font-semibold">{park?.name}</div>
-              <div className="text-sm text-dark-tint">
-                Total Length: {park?.info.distance} mi • 33 minutes to hike
-              </div>
-            </div>
-            <div className="">
-              <ParkWeatherBar
-                weather={park!.weather.slice(5, 6)}
-                className="py-0"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
     </>
   );
 }
 export default HikingStats;
+
+const PopoverList = () => (
+  <IonList>
+    <IonItem detail={false} button>
+      <IonLabel>Take a photo</IonLabel>
+      <IonIcon color="primary" slot="end" icon={cameraOutline} />
+    </IonItem>
+    <IonItem detail={false} button>
+      <IonLabel>Report</IonLabel>
+      <IonIcon color="primary" slot="end" icon={warningOutline} />
+    </IonItem>
+  </IonList>
+);

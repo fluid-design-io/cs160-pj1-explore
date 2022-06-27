@@ -1,5 +1,10 @@
 import { Redirect, Route } from "react-router-dom";
-import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
+import {
+  IonApp,
+  IonRouterOutlet,
+  isPlatform,
+  setupIonicReact,
+} from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 
 /* Core CSS required for Ionic components to work properly */
@@ -25,14 +30,25 @@ import "./theme/variables.css";
 /* Swiper css */
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/autoplay";
+import "swiper/css/effect-fade";
 import "@ionic/react/css/ionic-swiper.css";
 
 import ExplorePage from "./pages/Explore";
+import clsxm from "./lib/clsxm";
 
-setupIonicReact();
+setupIonicReact({
+  mode: "ios",
+});
 
 const App: React.FC = () => (
   <IonApp>
+    <div
+      className={clsxm(
+        "landscape:hidden py-6 fixed z-50 top-0 left-0 right-0 w-full backdrop-blur-sm backdrop-brightness-75 [-webkit-mask-image:_linear-gradient(black_15px,transparent)]",
+        !isPlatform("pwa") && "hidden"
+      )}
+    />
     <IonReactRouter>
       <IonRouterOutlet>
         <Route exact path="/explore" component={ExplorePage} />

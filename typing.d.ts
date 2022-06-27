@@ -6,6 +6,7 @@ export interface Park {
   address: string;
   distanceTo: number;
   type: string;
+  alerts: ParkAlert[];
   elevation: number[];
   coords: {
     latitude: number;
@@ -44,4 +45,10 @@ export interface ParkWeather {
   cast: "sunny" | "cloudy" | "rainy" | "snowy";
   wind: number;
   rain: number;
+}
+
+export interface ParkAlert {
+  title: string;
+  description: string;
+  date: string;
 }

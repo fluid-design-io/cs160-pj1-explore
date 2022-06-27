@@ -11,6 +11,7 @@ import {
 
 import { FaRestroom } from "react-icons/fa";
 import ParkOperationLabel from "./ParkOperationLabel";
+import clsxm from "../lib/clsxm";
 
 export const featureIcons = [
   {
@@ -58,7 +59,10 @@ const InfoItem = ({
   );
 };
 
-function ParkInfoBar({ park }: { park: Park }) {
+function ParkInfoBar({
+  park,
+  ...props
+}: { park: Park } & React.HTMLAttributes<HTMLDivElement>) {
   const availableFeatures = featureIcons
     .filter(
       // @ts-ignore
@@ -70,7 +74,12 @@ function ParkInfoBar({ park }: { park: Park }) {
       </div>
     ));
   return (
-    <div className="flex justify-start items-end divide-x divide-light-shade flex-1 [&_div:first-child]:pl-0 w-full max-w-full overflow-x-auto">
+    <div
+      className={clsxm(
+        "flex justify-start items-end divide-x divide-light-shade flex-1 [&_div:first-child]:pl-0 w-full max-w-full overflow-x-auto",
+        props?.className
+      )}
+    >
       <InfoItem
         label="Hours"
         Component={<ParkOperationLabel operation={park.info.operation} />}

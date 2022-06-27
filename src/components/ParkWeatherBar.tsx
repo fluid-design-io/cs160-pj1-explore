@@ -1,6 +1,6 @@
 import { MdWbCloudy, MdWbSunny } from "react-icons/md";
 import { Park } from "../../typing";
-import { BsCloudRainFill, BsCloudSnowFill } from "react-icons/bs";
+import { BsCloudRainFill, BsCloudSnowFill, BsFillCloudSunFill } from "react-icons/bs";
 import { HTMLAttributes } from "react";
 import clsxm from "../lib/clsxm";
 
@@ -12,6 +12,10 @@ function ParkWeatherBar({
     {
       cast: "sunny",
       icon: <MdWbSunny className="w-5 h-5 my-1.5 text-[#e6d115]" />,
+    },
+    {
+      cast: "partly-cloudy",
+      icon: <BsFillCloudSunFill className="w-5 h-5 my-1.5 text-medium-default" />,
     },
     {
       cast: "cloudy",

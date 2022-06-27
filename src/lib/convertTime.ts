@@ -6,5 +6,5 @@ export const convertTime = (time: number): string => {
     return `${time} minutes`;
   }
   const minutes = time % 60;
-  return `${hours} hours ${minutes} minutes`;
+  return `${hours} hour${hours > 1 ? "s" : ""} ${minutes} minutes`;
 };
