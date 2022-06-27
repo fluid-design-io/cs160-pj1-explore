@@ -1,6 +1,10 @@
 import { MdWbCloudy, MdWbSunny } from "react-icons/md";
 import { Park } from "../../typing";
-import { BsCloudRainFill, BsCloudSnowFill, BsFillCloudSunFill } from "react-icons/bs";
+import {
+  BsCloudRainFill,
+  BsCloudSnowFill,
+  BsFillCloudSunFill,
+} from "react-icons/bs";
 import { HTMLAttributes } from "react";
 import clsxm from "../lib/clsxm";
 
@@ -15,7 +19,9 @@ function ParkWeatherBar({
     },
     {
       cast: "partly-cloudy",
-      icon: <BsFillCloudSunFill className="w-5 h-5 my-1.5 text-medium-default" />,
+      icon: (
+        <BsFillCloudSunFill className="w-5 h-5 my-1.5 text-medium-default" />
+      ),
     },
     {
       cast: "cloudy",
@@ -37,12 +43,12 @@ function ParkWeatherBar({
         props?.className
       )}
     >
-      {weather.map((cast) => {
+      {weather.map((cast,i) => {
         const icon =
           weatherIcons.find((i) => i.cast === cast.cast)?.icon || null;
         return (
           <div
-            key={cast.cast}
+            key={`${cast.cast}-${cast.temperature}-${cast.hour}-${i}`}
             className="flex items-center flex-col font-rounded px-3 justify-center"
           >
             <span className="text-xs text-medium-shade">{cast.hour}</span>
