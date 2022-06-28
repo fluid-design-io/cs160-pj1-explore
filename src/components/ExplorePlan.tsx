@@ -51,7 +51,7 @@ function ExplorePlan({ dismiss }: { dismiss: (park?: Park) => void }) {
           </IonToolbar>
         </IonHeader>
         {/* @ts-ignore */}
-        {parkList.slice(0,1).map((park: Park) => (
+        {parkList.slice(2,3).map((park: Park) => (
           <PlanCard
             key={`plan-${park.id}`}
             park={park}

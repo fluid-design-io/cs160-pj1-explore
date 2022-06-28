@@ -13,7 +13,12 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { closeCircle, location, shareOutline } from "ionicons/icons";
+import {
+  closeCircle,
+  location,
+  shareOutline,
+  trashBinOutline,
+} from "ionicons/icons";
 import { convertTime } from "../lib/convertTime";
 import ElevationBar from "./ElevationBar";
 import ParkInfoBar, { featureIcons } from "./ParkInfoBar";
@@ -45,9 +50,7 @@ function ParkCompareModal({ dismiss }: { dismiss: () => void }) {
         <IonToolbar>
           <IonTitle>Compare</IonTitle>
           <IonButtons slot="start" collapse>
-            <IonButton onClick={dismiss}>
-              Done
-            </IonButton>
+            <IonButton onClick={dismiss}>Done</IonButton>
           </IonButtons>
           <IonButtons slot="end">
             <IonButton onClick={dismiss}>
@@ -65,15 +68,19 @@ function ParkCompareModal({ dismiss }: { dismiss: () => void }) {
             <IonSearchbar
               value={park.name}
               showClearButton="always"
+              showCancelButton="always"
+              cancelButtonText="Remove"
               searchIcon={location}
             />
             <IonSearchbar
               value={park2.name}
               showClearButton="always"
+              showCancelButton="always"
+              cancelButtonText="Remove"
               searchIcon={location}
             />
             <IonSearchbar
-              placeholder="Add..."
+              placeholder="Find a trail to add..."
               showClearButton="always"
               searchIcon={location}
             />

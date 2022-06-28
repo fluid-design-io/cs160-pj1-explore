@@ -183,7 +183,7 @@ const ExploreSheetModal = ({
         </IonList>
         <IonList className={clsxm("!-mb-2", isSearching && "hidden")} inset>
           {/* @ts-ignore */}
-          {parkList.slice(1, 3).map((park: Park) => (
+          {parkList.slice(0, 2).map((park: Park) => (
             <ParkItem
               key={park.id}
               park={park}
@@ -200,7 +200,7 @@ const ExploreSheetModal = ({
         </IonListHeader>
         <IonList className={clsxm(isSearching && "hidden")} inset>
           {/* @ts-ignore */}
-          {parkList.slice(0, 1).map((park: Park) => (
+          {parkList.slice(2, 3).map((park: Park) => (
             <ParkItem
               key={`my.plans.${park.id}`}
               park={park}

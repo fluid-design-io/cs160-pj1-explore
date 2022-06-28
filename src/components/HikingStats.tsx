@@ -13,6 +13,8 @@ import {
 import {
   cameraOutline,
   ellipsisHorizontalCircle,
+  notificationsCircleOutline,
+  notificationsOutline,
   warningOutline,
 } from "ionicons/icons";
 import { Park } from "../../typing";
@@ -72,8 +74,8 @@ export default HikingStats;
 const PopoverList = () => (
   <IonList>
     <IonItem detail={false} button>
-      <IonLabel>Take a photo</IonLabel>
-      <IonIcon color="primary" slot="end" icon={cameraOutline} />
+      <IonLabel>Notifications</IonLabel>
+      <IonIcon color="primary" slot="end" icon={notificationsOutline} />
     </IonItem>
     <IonItem detail={false} button>
       <IonLabel>Report</IonLabel>

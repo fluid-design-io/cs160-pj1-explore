@@ -48,8 +48,8 @@ function PlanCard({
         <IonCardSubtitle>
           {park.distanceTo} mi • {park.location}
         </IonCardSubtitle>
-        <ParkInfoBar park={park} />
       </IonCardContent>
+      <ParkInfoBar park={park} className="px-5 mb-4 -mt-4" />
     </IonCard>
   );
 }

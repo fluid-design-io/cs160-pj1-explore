@@ -1,6 +1,6 @@
 {
   "name": "explore",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "dependencies": {
     "@capacitor/app": "1.1.1",
@@ -79,5 +79,5 @@
     "postcss": "^8.4.14",
     "tailwindcss": "^3.1.4"
   },
-  "description": "An Ionic project"
+  "description": "Explore is a mobile app that helps you find trails and help you plan your next adventure."
 }

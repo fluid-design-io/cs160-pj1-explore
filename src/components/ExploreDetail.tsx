@@ -191,7 +191,7 @@ export default ExploreDetail;
 const MorePopoverList = () => (
   <IonList>
     <IonItem detail={false} button>
-      <IonLabel>Add to plan</IonLabel>
+      <IonLabel>Add to...</IonLabel>
       <IonIcon color="primary" slot="end" icon={add} />
     </IonItem>
     <IonItem detail={false} button>
