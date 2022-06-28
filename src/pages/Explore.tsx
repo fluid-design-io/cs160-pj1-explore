@@ -63,7 +63,7 @@ const ExplorePage: React.FC = () => {
     }
   };
   useIonViewDidEnter(async () => {
-    if (!(await checkStorage("welcome_modal_shown1"))) {
+    if (!(await checkStorage("welcome_modal_shown"))) {
       presentWelcomeModal({
         presentingElement: pageRef.current || undefined,
         canDismiss: true,
