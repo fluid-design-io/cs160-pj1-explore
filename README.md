@@ -24,6 +24,10 @@
 
 Powered by [**React**](https://reactjs.org/) with [**Ionic Framework**](https://ionicframework.com/). Supports desktop and mobile screens & PWA capabel. 
 
+### Video Prototype
+
+https://user-images.githubusercontent.com/13263720/176124796-4f9cf91e-77d3-47cf-9752-415bc3e59587.mp4
+
 ### Sketches & Wireframes
 
 [Sketches](https://github.com/fluid-design-io/cs160-pj1-explore/files/8997986/Sketches.-.Oliver.Pan.pdf)
