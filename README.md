@@ -2,10 +2,11 @@
 
 <div  align="center">
   <img src="https://user-images.githubusercontent.com/13263720/176101690-34641bed-4fcf-431e-98ef-e31f4a1bb6d6.png" width="120" height="120" />
-  <h2>Explore - Sightseer</h2>
+  <h3>Explore - Sightseer</h2>
   <p>Explore is a mobile app that helps you find trails and help you plan your next adventure.</p>
 </div>
 
+---
 
 ### Demo
 
