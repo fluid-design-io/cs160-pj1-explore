@@ -13,7 +13,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { closeCircle, location } from "ionicons/icons";
+import { closeCircle, location, shareOutline } from "ionicons/icons";
 import { convertTime } from "../lib/convertTime";
 import ElevationBar from "./ElevationBar";
 import ParkInfoBar, { featureIcons } from "./ParkInfoBar";
@@ -44,13 +44,14 @@ function ParkCompareModal({ dismiss }: { dismiss: () => void }) {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Compare</IonTitle>
-          <IonButtons slot="end" collapse>
-            <IonButton
-              onClick={dismiss}
-              color="medium"
-              style={{ fontSize: 22, marginRight: -6, opacity: 0.7 }}
-            >
-              <IonIcon icon={closeCircle} />
+          <IonButtons slot="start" collapse>
+            <IonButton onClick={dismiss}>
+              Done
+            </IonButton>
+          </IonButtons>
+          <IonButtons slot="end">
+            <IonButton onClick={dismiss}>
+              <IonIcon icon={shareOutline} />
             </IonButton>
           </IonButtons>
         </IonToolbar>
@@ -62,12 +63,12 @@ function ParkCompareModal({ dismiss }: { dismiss: () => void }) {
           </IonToolbar>
           <IonToolbar color="light">
             <IonSearchbar
-              value="Diablo Foothills Trail"
+              value={park.name}
               showClearButton="always"
               searchIcon={location}
             />
             <IonSearchbar
-              value="Mt. Diablo"
+              value={park2.name}
               showClearButton="always"
               searchIcon={location}
             />
@@ -78,10 +79,20 @@ function ParkCompareModal({ dismiss }: { dismiss: () => void }) {
             />
           </IonToolbar>
         </IonHeader>
-        <IonListHeader className="-mb-3">Operation</IonListHeader>
-        <IonList className="p-4 flex flex-col gap-4" inset>
-          <ParkInfoBar park={park} />
-          <ParkInfoBar park={park2} />
+        <IonListHeader className="-mb-3">Overview</IonListHeader>
+        <IonList className="px-4 pb-4 pt-2 flex flex-col gap-2" inset>
+          <div>
+            <span className="text-sm font-bold text-dark-tint">
+              {park.name}
+            </span>
+            <ParkInfoBar park={park} />
+          </div>
+          <div>
+            <span className="text-sm font-bold text-dark-tint">
+              {park2.name}
+            </span>
+            <ParkInfoBar park={park2} />
+          </div>
         </IonList>
         <IonListHeader className="-mb-3">Details</IonListHeader>
 
@@ -92,6 +103,10 @@ function ParkCompareModal({ dismiss }: { dismiss: () => void }) {
         >
           <SwiperSlide>
             <IonList inset>
+              <IonItem>
+                <IonLabel>Trail</IonLabel>
+                <p>{park.name}</p>
+              </IonItem>
               <IonItem>
                 <IonLabel>Hours</IonLabel>
                 <p>{park.info.hours}</p>
@@ -113,6 +128,10 @@ function ParkCompareModal({ dismiss }: { dismiss: () => void }) {
           <SwiperSlide>
             <IonList inset>
               <IonItem>
+                <IonLabel>Trail</IonLabel>
+                <p>{park2.name}</p>
+              </IonItem>
+              <IonItem>
                 <IonLabel>Hours</IonLabel>
                 <p>{park2.info.hours}</p>
               </IonItem>
@@ -133,13 +152,33 @@ function ParkCompareModal({ dismiss }: { dismiss: () => void }) {
         </Swiper>
         <IonListHeader className="-mb-3">Elevation</IonListHeader>
         <IonList inset>
-          <ElevationBar elevation={park.elevation} />
-          <ElevationBar elevation={park2.elevation} />
+          <div className="pt-2">
+            <span className="text-sm font-bold text-dark-tint px-4">
+              {park.name}
+            </span>
+            <ElevationBar elevation={park.elevation} />
+          </div>
+          <div>
+            <span className="text-sm font-bold text-dark-tint px-4">
+              {park2.name}
+            </span>
+            <ElevationBar elevation={park2.elevation} />
+          </div>
         </IonList>
         <IonListHeader className="-mb-3">Weather</IonListHeader>
         <IonList inset>
-          <ParkWeatherBar weather={park.weather} />
-          <ParkWeatherBar weather={park2.weather} />
+          <div className="pt-2">
+            <span className="text-sm font-bold text-dark-tint px-4">
+              {park.name}
+            </span>
+            <ParkWeatherBar weather={park.weather} className="pl-2 pt-0" />
+          </div>
+          <div>
+            <span className="text-sm font-bold text-dark-tint px-4">
+              {park2.name}
+            </span>
+            <ParkWeatherBar weather={park2.weather} className="pl-2 pt-0" />
+          </div>
         </IonList>
         <IonListHeader className="-mb-3">Features</IonListHeader>
         <Swiper
@@ -149,11 +188,17 @@ function ParkCompareModal({ dismiss }: { dismiss: () => void }) {
         >
           <SwiperSlide>
             <IonList className="p-4 w-full" inset>
+              <p className="text-sm font-bold text-dark-tint text-left">
+                {park.name}
+              </p>
               {availableFeatures(park)}
             </IonList>
           </SwiperSlide>
           <SwiperSlide>
             <IonList className="p-4 w-full" inset>
+              <p className="text-sm font-bold text-dark-tint text-left">
+                {park2.name}
+              </p>
               {availableFeatures(park2)}
             </IonList>
           </SwiperSlide>

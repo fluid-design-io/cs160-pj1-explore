@@ -182,6 +182,11 @@
     "type": "trail",
     "alerts": [
       {
+        "title": "Portion of Diablo Foothills Trail closed",
+        "description": "Part of the Diablo Foothills Trail starting from the stairs at Sand Bench will be closed for repairs 6 am to 4:30 pm Mondays through Thursdays until further notice. Other sections remain open.",
+        "date": "2022-03-01T00:00:00.000Z"
+      },
+      {
         "title": "Snowfall",
         "description": "Snowfall is expected on the Diablo Foothills Trail in the next few days. Please plan your trip accordingly.",
         "date": "2022-03-01T00:00:00.000Z"

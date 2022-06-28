@@ -89,7 +89,7 @@ function ParkInfoBar({
       <InfoItem
         label="Features"
         Component={
-          <div className="flex justify-between items-center gap-1 my-1">
+          <div className="flex justify-between items-center gap-1 mb-[0.1875rem] mt-[0.215rem]">
             {availableFeatures}
           </div>
         }

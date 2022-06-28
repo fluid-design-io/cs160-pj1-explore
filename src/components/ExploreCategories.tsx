@@ -63,12 +63,15 @@ function ExploreCategories({
       {list.map(({ name, icon, color, action }) => (
         <IonChip
           key={`chip-${name}`}
-          className="min-w-[6rem] flex-shrink-0 rounded-md [&:first-child]:ml-4 [&:last-child]:mr-4 mx-2"
+          className={clsxm("min-w-[6rem] flex-shrink-0 rounded-md [&:first-child]:ml-4 [&:last-child]:mr-4 mx-2",
+            name === "My Plans" && "bg-primary-tint",
+            name === "Compare" && "bg-secondary-tint",
+          )}
           color={color}
           onClick={() => onClick(action)}
         >
           <IonIcon icon={icon} />
-          <IonLabel>{name}</IonLabel>
+          <IonLabel className="font-semibold">{name}</IonLabel>
         </IonChip>
       ))}
     </div>

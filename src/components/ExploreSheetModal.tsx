@@ -39,6 +39,8 @@ const ExploreSheetModal = ({
   const contentRef = useRef<HTMLIonContentElement>(null);
   const [present] = useIonAlert();
 
+  const isSearching = search.length > 0;
+
   const expandModal = () => {
     modal.current && modal.current.setCurrentBreakpoint(1);
     setIsExpanded(true);
@@ -98,7 +100,7 @@ const ExploreSheetModal = ({
       presentCompareModal(sheetModalConfig);
     } else if (action.type === "nearby") {
       present({
-        header: "Portion of Diablo Foothills Trail closed",
+        header: "Portion of Diablo Foothills Trail closed (in 1.5 miles)",
         message: new IonicSafeString(`
           <img src="/assets/trail-closed-demo.jpg" width="100%" style="object-fit:cover;border-radius:6px;margin-bottom:0.5rem;" />
           <p style="text-align:left">
@@ -140,7 +142,7 @@ const ExploreSheetModal = ({
               expandModal();
               setTimeout(() => {
                 searchFocus();
-              }, 100);
+              }, 350);
             }}
           />
           <div className="flex gap-1.5 items-center">
@@ -154,6 +156,7 @@ const ExploreSheetModal = ({
               onIonCancel={contractModal}
               onIonChange={(e) => setSearch(e.detail.value!)}
               onIonClear={() => setSearch("")}
+              inputMode="search"
             />
             <IonAvatar
               className={clsxm(
@@ -169,16 +172,16 @@ const ExploreSheetModal = ({
       </IonHeader>
       <IonContent ref={contentRef} color="light" scrollEvents>
         <ExploreCategories
-          className={clsxm(search.length > 0 && "opacity-0")}
+          className={clsxm(isSearching && "hidden")}
           onClick={handleExploreCategory}
         />
-        <IonList className="!m-0" inset>
+        <IonList className={clsxm("!m-0", isSearching && "hidden")} inset>
           <IonListHeader className="-mt-3" color="light">
             <IonLabel>Recent</IonLabel>
             <IonButton>More</IonButton>
           </IonListHeader>
         </IonList>
-        <IonList className="!-mb-2" inset>
+        <IonList className={clsxm("!-mb-2", isSearching && "hidden")} inset>
           {/* @ts-ignore */}
           {parkList.slice(1, 3).map((park: Park) => (
             <ParkItem
@@ -191,11 +194,11 @@ const ExploreSheetModal = ({
             />
           ))}
         </IonList>
-        <IonListHeader className="-mb-3">
+        <IonListHeader className={clsxm("-mb-3", isSearching && "hidden")}>
           <IonLabel>My Plans</IonLabel>
           <IonButton>More</IonButton>
         </IonListHeader>
-        <IonList inset>
+        <IonList className={clsxm(isSearching && "hidden")} inset>
           {/* @ts-ignore */}
           {parkList.slice(0, 1).map((park: Park) => (
             <ParkItem
@@ -207,6 +210,26 @@ const ExploreSheetModal = ({
               }}
             />
           ))}
+        </IonList>
+        <IonListHeader className={clsxm("-mb-3", !isSearching && "hidden")}>
+          <IonLabel>Results</IonLabel>
+        </IonListHeader>
+        <IonList className={clsxm(!isSearching && "hidden")} inset>
+          {parkList
+            .filter((park) =>
+              park.name.toLowerCase().includes(search.toLowerCase())
+            )
+            /* @ts-ignore */
+            .map((park: Park) => (
+              <ParkItem
+                key={`my.plans.${park.id}`}
+                park={park}
+                onClick={handlePresentDetailModal}
+                options={{
+                  type: "compact",
+                }}
+              />
+            ))}
         </IonList>
       </IonContent>
     </IonModal>

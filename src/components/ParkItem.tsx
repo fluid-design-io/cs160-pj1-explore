@@ -62,9 +62,10 @@ function ParkItem({
             )}
             {type === "compact" && (
               <div className="flex justify-between items-center">
-                <p className="text-sm text-medium-shade">
-                  <ParkOperationLabel operation={park.info.operation} /> •{" "}
-                  {park.info.hours}
+                <p className="text-sm text-medium-shade flex flex-wrap gap-x-1">
+                  <ParkOperationLabel operation={park.info.operation} />
+                  <span>•</span>
+                  <span>{park.info.hours}</span>
                 </p>
               </div>
             )}

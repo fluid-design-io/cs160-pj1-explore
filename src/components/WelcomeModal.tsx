@@ -142,9 +142,9 @@ function WelcomeModal({ dismiss }: { dismiss: () => void }) {
                   </p>
                 </IonText>
                 <div
-                  className="slide-img"
+                  className="slide-img w-40 mx-auto"
                   style={{
-                    backgroundImage: `url('/assets/graphic/open-foto-about.webp')`,
+                    backgroundImage: `url('/assets/compass.svg')`,
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
                     backgroundPosition: "center",

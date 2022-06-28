@@ -11,7 +11,9 @@ function ParkAlertCard({ alert }: { alert: ParkAlert }) {
         <span className="font-medium text-xs text-medium-shade">
           {new Date(alert.date).toLocaleDateString()}
         </span>
-        <h2 className="text-lg font-semibold leading-5 pb-2.5">{alert.title}</h2>
+        <h2 className="text-lg font-semibold leading-5 pb-2.5 text-danger-default">
+          {alert.title}
+        </h2>
         <p className={clsxm("text-base", !expanded && "line-clamp-3")}>
           {alert.description}{" "}
         </p>

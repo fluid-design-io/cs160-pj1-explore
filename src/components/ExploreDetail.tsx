@@ -164,17 +164,17 @@ function ExploreDetail({
       </IonContent>
       <IonFooter>
         <IonToolbar>
-          <IonButton
-            slot="start"
-            color="light"
-            onClick={(e) =>
-              presentMorePopover({
-                event: e.nativeEvent,
-              })
-            }
-          >
-            <IonIcon icon={ellipsisHorizontalCircleOutline} />
-          </IonButton>
+          <IonButtons slot="start">
+            <IonButton
+              onClick={(e) =>
+                presentMorePopover({
+                  event: e.nativeEvent,
+                })
+              }
+            >
+              <IonIcon icon={ellipsisHorizontalCircleOutline} />
+            </IonButton>
+          </IonButtons>
           <IonButton slot="end" expand="block" onClick={() => dismiss(park)}>
             <IonIcon slot="start" icon={car} />
             <IonLabel slot="end">
